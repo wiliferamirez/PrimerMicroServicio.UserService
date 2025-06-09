@@ -1,0 +1,64 @@
+##############################
+# .NET Core API .gitignore  #
+##############################
+
+# Build artifacts
+bin/
+obj/
+out/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET Core secrets
+secrets.json
+/appsettings.Development.json
+/appsettings.*.json
+
+# Local database files
+*.db
+*.mdf
+*.ldf
+*.sqlite
+*.bak
+
+# EF Core Migrations (optional)
+# Uncomment the next line if you DO NOT want to track EF migrations
+# Migrations/
+
+# Test results
+TestResults/
+
+# Docker overrides
+docker-compose.override.yml
+
+# Backup files
+*.orig
+*.tmp
+*.old
+*.swp
