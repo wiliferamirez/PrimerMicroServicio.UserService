@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PrimerMicroServicio.Application.DTOs;
 using PrimerMicroServicio.Application.Interfaces;
+using PrimerMicroServicio.Domain.Exceptions;
 
 namespace PrimerMicroServicio.API.Controllers;
 
@@ -29,7 +30,7 @@ public class UsersController : ControllerBase
     {
         var user = await _userService.AuthenticateUserAsync(dto.UserEmail, dto.UserPassword);
         if (user is null)
-            return Unauthorized("User doesnt exist");
+            throw new InvalidCredentialsException();
 
         return Ok(user);
     }
