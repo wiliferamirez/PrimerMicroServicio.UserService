@@ -1,3 +1,4 @@
+using PrimerMicroServicio.API.Middelware;
 using PrimerMicroServicio.Application.Interfaces;
 using PrimerMicroServicio.Application.Services;
 
@@ -20,6 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseHttpsRedirection();
 
 app.Run();

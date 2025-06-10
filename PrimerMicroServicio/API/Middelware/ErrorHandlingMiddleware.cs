@@ -37,6 +37,16 @@ public class ErrorHandlingMiddleware
                     Message = ex.Message
                 };
             }
+
+            if (ex is InvalidCredentialsException)
+            {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                response = new
+                {
+                    StatusCode = 401,
+                    Message = ex.Message
+                };
+            }
             
             var jsonResponse = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(jsonResponse);
