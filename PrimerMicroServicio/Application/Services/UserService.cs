@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using PrimerMicroServicio.Application.DTOs;
 using PrimerMicroServicio.Application.Interfaces;
 using PrimerMicroServicio.Domain.Entities;
+using PrimerMicroServicio.Domain.Exceptions;
 
 namespace PrimerMicroServicio.Application.Services;
 
@@ -16,7 +17,7 @@ public class UserService : IUserService
     {
         if (_users.Any(u => u.CedulaUser == newUser.CedulaUser || u.UserEmail == newUser.UserEmail))
         {
-            return false;
+            throw new UserAlreadyExistsException();
         }
         var user = new User
         {

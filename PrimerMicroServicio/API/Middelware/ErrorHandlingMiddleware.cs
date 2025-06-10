@@ -1,4 +1,5 @@
 using System.Text.Json;
+using PrimerMicroServicio.Domain.Exceptions;
 
 namespace PrimerMicroServicio.API.Middelware;
 
@@ -19,15 +20,24 @@ public class ErrorHandlingMiddleware
         }
         catch (Exception ex)
         {
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             context.Response.ContentType = "application/json";
-
             var response = new
             {
-                StatusCode = 500,
-                Message = "Ocurrió un error inesperado. Intente nuevamente más tarde."
+
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Message = "Something went wrong, Try again later"
             };
 
+            if (ex is UserAlreadyExistsException)
+            {
+                context.Response.StatusCode = StatusCodes.Status409Conflict;
+                response = new
+                {
+                    StatusCode = 409,
+                    Message = ex.Message
+                };
+            }
+            
             var jsonResponse = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(jsonResponse);
         }
