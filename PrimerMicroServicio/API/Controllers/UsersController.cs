@@ -23,4 +23,21 @@ public class UsersController : ControllerBase
             return Conflict(("User already exists"));
         return Ok("User created successfully");
     }
+    
+    [HttpPost("authenticate")]
+    public async Task<IActionResult> Authenticate([FromBody] LoginUserDto dto)
+    {
+        var user = await _userService.AuthenticateUserAsync(dto.UserEmail, dto.UserPassword);
+        if (user is null)
+            return Unauthorized("Credenciales incorrectas.");
+
+        return Ok(user);
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var users = await _userService.GetAllUsersAsync();
+        return Ok(users);
+    }
 }
