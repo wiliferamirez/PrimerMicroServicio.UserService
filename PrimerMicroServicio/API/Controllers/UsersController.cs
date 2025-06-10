@@ -29,7 +29,7 @@ public class UsersController : ControllerBase
     {
         var user = await _userService.AuthenticateUserAsync(dto.UserEmail, dto.UserPassword);
         if (user is null)
-            return Unauthorized("Credenciales incorrectas.");
+            return Unauthorized("User doesnt exist");
 
         return Ok(user);
     }
